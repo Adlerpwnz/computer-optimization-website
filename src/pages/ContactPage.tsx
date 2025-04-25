@@ -8,11 +8,11 @@ import { Separator } from '@/components/ui/separator';
 import { 
   MessageSquare, 
   Send, 
-  BrandTelegram, 
-  BrandDiscord,
   Mail,
   Copy,
-  CheckCircle
+  CheckCircle,
+  MessageCircle,
+  BadgeInfo
 } from 'lucide-react';
 
 const ContactPage = () => {
@@ -193,7 +193,7 @@ const ContactPage = () => {
                 
                 <div className="flex items-center p-4 bg-muted rounded-lg">
                   <div className="mr-4 rounded-full w-10 h-10 flex items-center justify-center gradient-bg">
-                    <BrandTelegram className="h-5 w-5 text-white" />
+                    <MessageCircle className="h-5 w-5 text-white" />
                   </div>
                   <div className="flex-1">
                     <h3 className="font-medium">{content.social.telegram}</h3>
