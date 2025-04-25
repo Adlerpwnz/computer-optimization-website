@@ -249,32 +249,23 @@ const ServicesPage = () => {
         </div>
         
         <Tabs defaultValue="windows" className="w-full">
-          <TabsList className="grid grid-cols-3 md:grid-cols-6 mb-8">
-            <TabsTrigger value="windows" className="flex items-center gap-2 btn-animation">
-              {categoryIcons.windows} {content.categories.windows}
-            </TabsTrigger>
-            <TabsTrigger value="bios" className="flex items-center gap-2 btn-animation">
-              {categoryIcons.bios} {content.categories.bios}
-            </TabsTrigger>
-            <TabsTrigger value="latency" className="flex items-center gap-2 btn-animation">
-              {categoryIcons.latency} {content.categories.latency}
-            </TabsTrigger>
-            <TabsTrigger value="gameSpecific" className="flex items-center gap-2 btn-animation">
-              {categoryIcons.gameSpecific} {content.categories.gameSpecific}
-            </TabsTrigger>
-            <TabsTrigger value="hardware" className="flex items-center gap-2 btn-animation">
-              {categoryIcons.hardware} {content.categories.hardware}
-            </TabsTrigger>
-            <TabsTrigger value="stability" className="flex items-center gap-2 btn-animation">
-              {categoryIcons.stability} {content.categories.stability}
-            </TabsTrigger>
+          <TabsList className="flex flex-wrap justify-center mb-8 w-full gap-2">
+            {Object.entries(content.categories).map(([key, value]) => (
+              <TabsTrigger 
+                key={key} 
+                value={key} 
+                className="flex items-center gap-2 btn-animation py-2"
+              >
+                {categoryIcons[key as keyof typeof categoryIcons]} {value}
+              </TabsTrigger>
+            ))}
           </TabsList>
           
           {Object.entries(content.services).map(([key, services]) => (
-            <TabsContent key={key} value={key} className="space-y-6">
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <TabsContent key={key} value={key}>
+              <div className="service-card-grid">
                 {services.map((service, i) => (
-                  <Card key={i} className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 btn-animation">
+                  <Card key={i} className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 btn-animation h-full">
                     <CardHeader>
                       <CardTitle>{service.title}</CardTitle>
                       <CardDescription>{service.description}</CardDescription>
