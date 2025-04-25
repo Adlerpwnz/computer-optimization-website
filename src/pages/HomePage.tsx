@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { CardHover } from '@/components/ui/card-hover';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   Cpu, 
   Settings, 
   Clock, 
-  Gamepad, 
-  HardDrive, 
-  Shield,
   ArrowRight,
   Star,
   Zap,
+  Shield,
   ChevronRight
 } from 'lucide-react';
 
 const HomePage = () => {
-  const [language, setLanguage] = useState<'ru' | 'en'>('ru');
+  const { language } = useLanguage();
   
   // This would normally come from a context or i18n library
   const texts = {
@@ -149,7 +148,7 @@ const HomePage = () => {
               <div className="relative w-full h-80 md:h-96">
                 <div className="absolute inset-0 bg-gradient-radial from-accent/20 to-transparent rounded-full blur-2xl animate-pulse-light" />
                 <img 
-                  src="https://images.unsplash.com/photo-1551428069-3d82c58bbc54?q=80&w=1000&auto=format&fit=crop" 
+                  src="https://images.unsplash.com/photo-1603481546579-65d935ba9996?q=80&w=2070&auto=format&fit=crop" 
                   alt="Gaming PC Setup" 
                   className="object-cover w-full h-full rounded-lg shadow-lg"
                 />

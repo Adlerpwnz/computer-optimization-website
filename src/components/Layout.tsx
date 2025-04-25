@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Laptop, Settings, Phone, Globe, Moon, Sun } from 'lucide-react';
+import { Laptop, Globe, Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface NavLinkProps {
   to: string;
@@ -28,7 +29,7 @@ const NavLink = ({ to, children, activeClass = "" }: NavLinkProps) => {
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const [language, setLanguage] = useState<'ru' | 'en'>('ru');
+  const { language, setLanguage } = useLanguage();
   
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -48,6 +49,23 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
+  const texts = {
+    ru: {
+      home: 'Главная',
+      services: 'Услуги',
+      contact: 'Контакты',
+      rights: 'Все права защищены'
+    },
+    en: {
+      home: 'Home',
+      services: 'Services',
+      contact: 'Contact',
+      rights: 'All rights reserved'
+    }
+  };
+
+  const content = language === 'ru' ? texts.ru : texts.en;
+
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -58,15 +76,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               <span className="text-xl font-bold gradient-text">ByAdlerpwnz</span>
             </Link>
             <nav className="hidden md:flex items-center gap-2">
-              <NavLink to="/" activeClass="gradient-bg">{language === 'ru' ? 'Главная' : 'Home'}</NavLink>
-              <NavLink to="/services" activeClass="gradient-bg">{language === 'ru' ? 'Услуги' : 'Services'}</NavLink>
-              <NavLink to="/contact" activeClass="gradient-bg">{language === 'ru' ? 'Контакты' : 'Contact'}</NavLink>
+              <NavLink to="/" activeClass="gradient-bg">{content.home}</NavLink>
+              <NavLink to="/services" activeClass="gradient-bg">{content.services}</NavLink>
+              <NavLink to="/contact" activeClass="gradient-bg">{content.contact}</NavLink>
             </nav>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" onClick={toggleLanguage} className="btn-animation">
               <Globe className="h-5 w-5" />
-              <span className="sr-only">Toggle language</span>
+              <span className="ml-2 text-sm">{language === 'ru' ? 'EN' : 'RU'}</span>
             </Button>
             <Button variant="ghost" size="icon" onClick={toggleTheme} className="btn-animation">
               {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
@@ -83,7 +101,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <footer className="border-t py-6 md:py-0">
         <div className="container flex flex-col md:flex-row items-center justify-between gap-4 md:h-16">
           <p className="text-sm text-muted-foreground">
-            © 2024 ByAdlerpwnz. {language === 'ru' ? 'Все права защищены' : 'All rights reserved'}.
+            © 2024 ByAdlerpwnz. {content.rights}.
           </p>
           <div className="flex items-center gap-4">
             <a href="https://t.me/adlerpwnz" className="text-sm text-muted-foreground hover:text-foreground btn-animation">

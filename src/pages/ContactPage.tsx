@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Separator } from '@/components/ui/separator';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   MessageSquare, 
   Send, 
@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 
 const ContactPage = () => {
-  const [language, setLanguage] = useState<'ru' | 'en'>('ru');
+  const { language } = useLanguage();
   const [copied, setCopied] = useState<{ discord: boolean, telegram: boolean, email: boolean }>({
     discord: false,
     telegram: false,
